@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         imgWeb.setTag(R.drawable.ic_web_24dp);
 
         //Focus Listeners
+        // EL CÓDIGO DE TODOS LOS onFocusChange ES PRÁCTICAMENTE EL MISMO. HAZ UN MÉTODO.
         txtName.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) lblName.setTypeface(Typeface.DEFAULT_BOLD);
             else lblName.setTypeface(Typeface.DEFAULT);
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // ESTE MÉTODO ES PRÁCTICAMENTE REPETIDO EN TODOS LOS onTextChange. HAZ UN MÉTODO.
                 if (!ValidationUtils.isValidEmail(txtEmail.getText().toString())) {
                     txtEmail.setError(getString(R.string.main_invalid_data));
                     lblEmail.setEnabled(false);
@@ -209,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         txtWeb.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 save();
+                // YO YA TE PROPORCIONANA ESTE MÉTODO EN LA CLASE KeyboardUtils
                 InputMethodManager imm =
                         (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 Objects.requireNonNull(imm).hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -243,8 +246,11 @@ public class MainActivity extends AppCompatActivity {
      * Checks if form is valid or not and shows a Snackbar accordingly
      **/
     private void save() {
+        // LOS TODO LOS DEBES QUITAR CUANDO LOS HAYAS IMPLEMENTADO
         // TODO
         boolean validation = true;
+        // YO HARÍA UN MÉTODO isValidName(), isValidEmail(), etc.
+        // Y OTRO MÉTODO isValidForm()
         if (txtName.getText().toString().equals("")) {
             validation = false;
             txtName.setText("");
@@ -271,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (!ValidationUtils.isValidUrl(txtWeb.getText().toString())) validation = false;
 
 
+        // USA getString() EN VEZ DE getText() Y ASI NO TIENES QUE PONER EL toString()
         if (validation) {
             Snackbar.make(txtWeb, getText(R.string.main_saved_succesfully).toString(), Snackbar.LENGTH_SHORT).show();
         } else
